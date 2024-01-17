@@ -1,7 +1,13 @@
 import PySimpleGUI as sg
 import functions
+import os
+
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
 
 sg.theme("DarkBlue")
+
 addButton = sg.Button("Add", size= 13, mouseover_colors="Blue")
 inputBox = sg.Input(tooltip = "Enter the ToDo", key= "Add Text Box")
 label = sg.Text("Type in the ToDo")
@@ -16,10 +22,12 @@ completeButton = sg.Button("Complete", mouseover_colors="Green")
 
 exitButton = sg.Button("Exit")
 
+col1 = sg.Column([[editButton], [completeButton]])
+
 window = sg.Window("My ToDO App", 
                    layout= [[label],
                             [inputBox, addButton], 
-                            [listBox, editButton, completeButton],
+                            [listBox, col1],
                             [exitButton]],
                    font= ('Helvetica', 14))
 while True:
